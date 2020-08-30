@@ -10,7 +10,7 @@ namespace Twitter.Net.Stream
     public class FilteredStream
     {
         private readonly string baseUrl = "https://api.twitter.com/2/tweets/search/stream";
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public FilteredStream(HttpClient client)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Principal;
 
 namespace Twitter.Net.Search
 {
@@ -13,7 +12,7 @@ namespace Twitter.Net.Search
             public_metrics
         }
 
-        private string _searchText;
+        private readonly string _searchText;
         private List<TweetFields> _includedFields;
         private string _token;
         private int _maxResults = 10;

@@ -7,8 +7,10 @@ namespace Twitter.Net.Stream
         public DeleteRuleTagList Delete { get; set; }
         public DeleteStreamRules(List<string> values)
         {
-            Delete = new DeleteRuleTagList();
-            Delete.Values = values;
+            Delete = new DeleteRuleTagList
+            {
+                Values = values
+            };
         }
     }
 }
