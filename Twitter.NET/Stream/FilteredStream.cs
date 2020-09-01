@@ -16,6 +16,7 @@ namespace Twitter.Net.Stream
         {
             _client = client;
         }
+
         public async Task<CurrentStreamRules> GetRules()
         {
             var url = $"{baseUrl}/rules";
@@ -77,9 +78,41 @@ namespace Twitter.Net.Stream
             return result;
         }
 
+        /// <summary>
+        /// Stream tweets using the rules you've supplied.
+        /// Calling Stream() with no parameters returns the default tweet fields.
+        /// </summary>
+        /// <remarks>
+        /// Twitter stores the rules you've added between sessions. Check what rules are applied
+        /// before you begin streaming.
+        /// </remarks>
+        /// <returns>
+        /// A Stream object.
+        /// </returns>
         public async Task<System.IO.Stream> Stream()
         {
             var url = $"{baseUrl}";
+            var response = await _client.GetStreamAsync(url);
+            return response;
+        }
+
+        /// <summary>
+        /// Stream tweets using the rules you've supplied.
+        /// Returns the fields supplied to the TwitterFilteredStreamFactory.
+        /// </summary>
+        /// <remarks>
+        /// Twitter stores the rules you've added between sessions. Check what rules are applied
+        /// before you begin streaming.
+        /// </remarks>
+        /// <param name="includedFields">
+        /// Specify what tweet fields you would like returned using this factory.
+        /// </param>
+        /// <returns>
+        /// A Stream object.
+        /// </returns>
+        public async Task<System.IO.Stream> Stream(TwitterFilteredStreamFactory includedFields)
+        {
+            var url = $"{baseUrl}{includedFields.ProduceSearchString()}";
             var response = await _client.GetStreamAsync(url);
             return response;
         }
