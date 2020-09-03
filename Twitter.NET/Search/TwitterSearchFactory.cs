@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Twitter.Net.Fields;
 
 namespace Twitter.Net.Search
 {
-    public class TwitterSearchFactory : SearchFactory
+    public class TwitterSearchFactory : SearchFactory<TwitterSearchFactory>
     {
         private readonly string _searchText;
         private string _nextToken;

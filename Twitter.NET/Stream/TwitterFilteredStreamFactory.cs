@@ -3,7 +3,7 @@ using static Twitter.Net.Fields;
 
 namespace Twitter.Net.Stream
 {
-    public class TwitterFilteredStreamFactory : SearchFactory
+    public class TwitterFilteredStreamFactory : SearchFactory<TwitterFilteredStreamFactory>
     {
         public override string ToString()
         {

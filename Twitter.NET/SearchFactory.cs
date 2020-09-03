@@ -8,7 +8,7 @@ namespace Twitter.Net
     /// <summary>
     /// Defines the shared functionality of all searches.
     /// </summary>
-    public abstract class SearchFactory
+    public abstract class SearchFactory<T> where T : SearchFactory<T> // I know, I can't believe this works either
     {
         protected List<TweetField> _tweetFields = new List<TweetField>();
         protected List<Expansion> _expansions = new List<Expansion>();
@@ -17,35 +17,35 @@ namespace Twitter.Net
         protected List<PlaceField> _placeFields = new List<PlaceField>();
         protected List<UserField> _userFields = new List<UserField>();
 
-        public SearchFactory AddTweetField(TweetField tweetField)
+        public T AddTweetField(TweetField tweetField)
         {
             _tweetFields.Add(tweetField);
-            return this;
+            return (T) this;
         }
-        public SearchFactory AddExpansion(Expansion expansion)
+        public T AddExpansion(Expansion expansion)
         {
             _expansions.Add(expansion);
-            return this;
+            return (T) this;
         }
-        public SearchFactory AddMediaField(MediaField mediaField)
+        public T AddMediaField(MediaField mediaField)
         {
             _mediaFields.Add(mediaField);
-            return this;
+            return (T) this;
         }
-        public SearchFactory AddPollField(PollField pollField)
+        public T AddPollField(PollField pollField)
         {
             _pollFields.Add(pollField);
-            return this;
+            return (T)this;
         }
-        public SearchFactory AddPlaceField(PlaceField placeField)
+        public T AddPlaceField(PlaceField placeField)
         {
             _placeFields.Add(placeField);
-            return this;
+            return (T)this;
         }
-        public SearchFactory AddUserField(UserField userField)
+        public T AddUserField(UserField userField)
         {
             _userFields.Add(userField);
-            return this;
+            return (T) this;
         }
 
         public abstract override string ToString();
