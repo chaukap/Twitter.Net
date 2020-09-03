@@ -21,7 +21,7 @@ var results = await scraper.Search(factory);
 ```
 
 ### Create a filtered stream
-* Use a factory to select the fields to return with the tweets: (I know, I need to consolidate the namespaces)
+* Use a factory to select the fields to return with the tweets:
 ```
 var factory = new TwitterFilteredStreamFactory();
 factory.AddTweetField(Fields.TweetField.attachments)
