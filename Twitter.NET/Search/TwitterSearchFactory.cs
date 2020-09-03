@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Twitter.Net.Fields;
 
 namespace Twitter.Net.Search
 {
-    public class TwitterSearchFactory
+    public class TwitterSearchFactory : SearchFactory
     {
-        public enum TweetFields
-        {
-            id,
-            text,
-            public_metrics
-        }
-
         private readonly string _searchText;
-        private List<TweetFields> _includedFields;
-        private string _token;
+        private string _nextToken;
         private int _maxResults = 10;
         private DateTime _startTime;
         private DateTime _endTime;
@@ -26,15 +19,9 @@ namespace Twitter.Net.Search
             _searchText = searchText;
         }
 
-        public TwitterSearchFactory Include(List<TweetFields> fields)
+        public TwitterSearchFactory NextToken(string token)
         {
-            _includedFields = fields;
-            return this;
-        }
-
-        public TwitterSearchFactory Token(string token)
-        {
-            _token = token;
+            _nextToken = token;
             return this;
         }
 
@@ -75,23 +62,23 @@ namespace Twitter.Net.Search
             return this;
         }
 
-        public string ProduceSearchString()
+        public override string ToString()
         {
-            string search = $"query={_searchText}&max_results={_maxResults}";
+            string search = $"?query={_searchText}&max_results={_maxResults}";
 
-            if(_token != null)
+            if (_nextToken != null)
             {
-                search += $"&next_token={_token}";
+                search += $"&next_token={_nextToken}";
             }
 
             if (_startTime != null)
             {
-                search += $"&start_time={_startTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'} ";
+                search += $"&start_time={_startTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
             }
 
             if (_endTime != null)
             {
-                search += $"&start_time={_endTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'} ";
+                search += $"&start_time={_endTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
             }
 
             if (_sinceId != null)
@@ -104,16 +91,30 @@ namespace Twitter.Net.Search
                 search += $"&until_id={_untilId}";
             }
 
-            if (_includedFields.Count > 0)
+            search += AddQueryParam("tweet.fields", _tweetFields);
+            search += AddQueryParam("expansions", _expansions);
+            search += AddQueryParam("media.fields", _mediaFields);
+            search += AddQueryParam("poll.fields", _pollFields);
+            search += AddQueryParam("place.fields", _placeFields);
+            search += AddQueryParam("user.fields", _userFields);
+
+            return MapEnumNamesToAPINames(search);
+        }
+
+        private string AddQueryParam<T>(string key, List<T> values) where T : Enum
+        {
+            string queryParam = "";
+
+            if (values.Count > 0)
             {
-                search += $"&tweet.fields={_includedFields[0]}";
-                for (var i = 1; i < _includedFields.Count; ++i)
+                queryParam += $"&{key}={values[0]}";
+                for (int i = 1; i < values.Count; ++i)
                 {
-                    search += $",{_includedFields[i]}";
+                    queryParam += $",{values[i]}";
                 }
             }
 
-            return search;
+            return queryParam;
         }
     }
 }

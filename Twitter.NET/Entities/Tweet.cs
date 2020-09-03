@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Twitter.Net
 {
@@ -8,7 +9,8 @@ namespace Twitter.Net
     {
         public string Id { get; set; }
         public string Text { get; set; }
-        public PublicMetrics Public_Metrics { get; set;}
+        [JsonPropertyName("public_metrics")]
+        public PublicMetrics PublicMetrics { get; set;}
 
     }
 }

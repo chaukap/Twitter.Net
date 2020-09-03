@@ -17,7 +17,6 @@ namespace Twitter.Net.Search
             }
             return result;
         }
-
         public List<string> GetTextList(Func<Tweet, bool> comparator)
         {
             var result = new List<string>();

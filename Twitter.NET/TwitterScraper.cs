@@ -11,7 +11,7 @@ namespace Twitter.Net
     {
         public FilteredStream FilteredStream;
         private static readonly string BaseUrl = "https://api.twitter.com/2/";
-        private static readonly string SearchUrl = "tweets/search/recent?";
+        private static readonly string SearchUrl = "tweets/search/recent";
         private readonly string _bearerToken;
         private readonly HttpClient _client;
 
@@ -31,7 +31,7 @@ namespace Twitter.Net
 
         public async Task<SearchResults> Search(TwitterSearchFactory twitterSearchFactory)
         {
-            var queryUrl = BaseUrl + SearchUrl + twitterSearchFactory.ProduceSearchString();
+            var queryUrl = BaseUrl + SearchUrl + twitterSearchFactory.ToString();
             var response = await _client.GetAsync(queryUrl);
             var contentStream = await response.Content.ReadAsStreamAsync();
             var result = await JsonSerializer.DeserializeAsync<SearchResults>(

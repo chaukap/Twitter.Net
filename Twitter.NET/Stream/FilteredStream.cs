@@ -112,7 +112,7 @@ namespace Twitter.Net.Stream
         /// </returns>
         public async Task<System.IO.Stream> Stream(TwitterFilteredStreamFactory includedFields)
         {
-            var url = $"{baseUrl}{includedFields.ProduceSearchString()}";
+            var url = $"{baseUrl}{includedFields}";
             var response = await _client.GetStreamAsync(url);
             return response;
         }

@@ -1,8 +1,13 @@
-﻿namespace Twitter.Net.Stream
+﻿using System.Text.Json.Serialization;
+
+namespace Twitter.Net.Stream
 {
     public class DeletedRulesSummary
     {
+        [JsonPropertyName("deleted")]
         public int Deleted { get; set; }
-        public int Not_Deleted { get; set; }
+
+        [JsonPropertyName("not_deleted")]
+        public int NotDeleted { get; set; }
     }
 }
