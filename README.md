@@ -1,5 +1,5 @@
 # Twitter.Net
-A .NET wrapper for the Twitter API v2.
+A .NET wrapper for the [Twitter API v2](https://developer.twitter.com/en/docs/twitter-api/early-access).
 
 I'm actively developing this library but it's far from complete. Namespaces and design patterns will inevibly change, so stay tuned!
 
@@ -7,17 +7,16 @@ I'm actively developing this library but it's far from complete. Namespaces and 
 ### Search for tweets
 * Use a factory to build the search query:
 ```
-TwitterSearchFactory factory = new TwitterSearchFactory("bitcoin OR crypto OR cryptocurrency")
+TwitterSearchFactory factory = new TwitterSearchFactory("Chihuahua OR Poodle")
                     .MaxResults(25)
                     .Include(new List<TwitterSearchFactory.TweetFields>() {
-                        TwitterSearchFactory.TweetFields.id,
-                        TwitterSearchFactory.TweetFields.public_metrics,
-                        TwitterSearchFactory.TweetFields.text
+                        Fields.TweetField.id,
+                        Fields.TweetField.public_metrics,
+                        Fields.TweetField.text
                     });
 ```
-* Create a twitter scraper and Search using the factory
+* Create a twitter scraper and search using the factory
 ```
-var scraper = new TwitterScraper("<Bearer Token>");
 var results = await scraper.Search(factory);
 ```
 
@@ -25,13 +24,13 @@ var results = await scraper.Search(factory);
 * Use a factory to select the fields to return with the tweets: (I know, I need to consolidate the namespaces)
 ```
 var factory = new TwitterFilteredStreamFactory();
-factory.AddTweetField(TwitterFilteredStreamFactory.TweetField.attachments)
-    .AddTweetField(TwitterFilteredStreamFactory.TweetField.text)
-    .AddExpansion(TwitterFilteredStreamFactory.Expansion.mentions_username)
-    .AddMediaField(TwitterFilteredStreamFactory.MediaField.url)
-    .AddPollField(TwitterFilteredStreamFactory.PollField.voting_status)
-    .AddPlaceField(TwitterFilteredStreamFactory.PlaceField.place_type)
-    .AddUserField(TwitterFilteredStreamFactory.UserField.protected_user);
+factory.AddTweetField(Fields.TweetField.attachments)
+    .AddTweetField(Fields.TweetField.text)
+    .AddExpansion(Fields.Expansion.mentions_username)
+    .AddMediaField(Fields.MediaField.url)
+    .AddPollField(Fields.PollField.voting_status)
+    .AddPlaceField(Fields.PlaceField.place_type)
+    .AddUserField(Fields.UserField.protected_user);
 ```
 * Add rules to the stream:
 ```
@@ -51,6 +50,7 @@ await scraper.FilteredStream.AddRules(new List<StreamRule>()
 ```
 * Start the stream:
 ```
+var scraper = new TwitterScraper("<Bearer Token>");
 System.IO.Stream stream = await scraper.FilteredStream.Stream(factory);
 ```
 * Then read the stream like any other input!
