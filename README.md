@@ -53,7 +53,7 @@ await scraper.FilteredStream.AddRules(new List<StreamRule>()
 var scraper = new TwitterScraper("<Bearer Token>");
 System.IO.Stream stream = await scraper.FilteredStream.Stream(factory);
 ```
-* Then read the stream like any other input!
+* Recieve tweets in real time!
 ```
-stream.ReadLine();
+stream.NextTweet();
 ```
