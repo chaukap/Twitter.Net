@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Twitter.Net.Stream
 {
-    class TwitterStream : StreamReader
+    public class TwitterStream : StreamReader
     {
         public TwitterStream(System.IO.Stream stream) : base(stream) { }
 

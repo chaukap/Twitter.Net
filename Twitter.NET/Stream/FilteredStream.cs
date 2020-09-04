@@ -110,11 +110,11 @@ namespace Twitter.Net.Stream
         /// <returns>
         /// A Stream object.
         /// </returns>
-        public async Task<System.IO.Stream> Stream(TwitterFilteredStreamFactory includedFields)
+        public async Task<TwitterStream> Stream(TwitterStreamFactory includedFields)
         {
             var url = $"{baseUrl}{includedFields}";
             var response = await _client.GetStreamAsync(url);
-            return response;
+            return new TwitterStream(response);
         }
     }
 }
