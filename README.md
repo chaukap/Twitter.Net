@@ -9,11 +9,13 @@ I'm actively developing this library but it's far from complete. Namespaces and 
 ```
 TwitterSearchFactory factory = new TwitterSearchFactory("Chihuahua OR Poodle")
                     .MaxResults(25)
-                    .Include(new List<TwitterSearchFactory.TweetFields>() {
-                        Fields.TweetField.id,
-                        Fields.TweetField.public_metrics,
-                        Fields.TweetField.text
-                    });
+                    .AddTweetField(Fields.TweetField.attachments)
+                    .AddTweetField(Fields.TweetField.text)
+                    .AddExpansion(Fields.Expansion.mentions_username)
+                    .AddMediaField(Fields.MediaField.url)
+                    .AddPollField(Fields.PollField.voting_status)
+                    .AddPlaceField(Fields.PlaceField.place_type)
+                    .AddUserField(Fields.UserField.protected_user);
 ```
 * Create a twitter scraper and search using the factory
 ```
