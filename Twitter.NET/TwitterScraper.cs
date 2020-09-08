@@ -11,6 +11,7 @@ namespace Twitter.Net
     {
         public FilteredStream FilteredStream;
         public SampledStream SampledStream;
+
         private static readonly string BaseUrl = "https://api.twitter.com/2/";
         private static readonly string SearchUrl = "tweets/search/recent";
         private readonly string _bearerToken;
