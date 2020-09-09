@@ -4,10 +4,12 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Twitter.Net.Stream;
 using Twitter.Net.Search;
+using System.IO;
+using System;
 
 namespace Twitter.Net
 {
-    public class TwitterScraper
+    public class TwitterClient
     {
         public FilteredStream FilteredStream;
         public SampledStream SampledStream;
@@ -23,7 +25,7 @@ namespace Twitter.Net
             World = 1
         }
 
-        public TwitterScraper(string bearerToken)
+        public TwitterClient(string bearerToken)
         {
             _bearerToken = bearerToken;
             _client = new HttpClient();
@@ -37,10 +39,11 @@ namespace Twitter.Net
             var response = await _client.GetAsync(queryUrl);
             var contentStream = await response.Content.ReadAsStreamAsync();
             var result = await JsonSerializer.DeserializeAsync<SearchResults>(
-                contentStream, 
-                new JsonSerializerOptions { 
-                    IgnoreNullValues = true, 
-                    PropertyNameCaseInsensitive = true 
+                contentStream,
+                new JsonSerializerOptions
+                {
+                    IgnoreNullValues = true,
+                    PropertyNameCaseInsensitive = true
                 });
             return result;
         }

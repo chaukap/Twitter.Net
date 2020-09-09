@@ -8,8 +8,8 @@ namespace Twitter.Net.Search
         private readonly string _searchText;
         private string _nextToken;
         private int _maxResults = 10;
-        private DateTime _startTime;
-        private DateTime _endTime;
+        private DateTime? _startTime;
+        private DateTime? _endTime;
         private string _sinceId;
         private string _untilId;
 
@@ -72,12 +72,12 @@ namespace Twitter.Net.Search
 
             if (_startTime != null)
             {
-                search += $"&start_time={_startTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
+                search += $"&start_time={_startTime?.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
             }
 
             if (_endTime != null)
             {
-                search += $"&start_time={_endTime.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
+                search += $"&start_time={_endTime?.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
             }
 
             if (_sinceId != null)
