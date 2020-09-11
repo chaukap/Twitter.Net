@@ -42,7 +42,7 @@ namespace Twitter.Net.Stream
                     IgnoreNullValues = true,
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
-            Console.WriteLine(new StringContent(content));
+
             var response = await _client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
             var contentStream = await response.Content.ReadAsStreamAsync();
             var result = await JsonSerializer.DeserializeAsync<CurrentStreamRules>(
