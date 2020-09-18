@@ -77,7 +77,7 @@ namespace Twitter.Net.Search
 
             if (_endTime != null)
             {
-                search += $"&start_time={_endTime?.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
+                search += $"&end_time={_endTime?.ToUniversalTime():yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'}";
             }
 
             if (_sinceId != null)

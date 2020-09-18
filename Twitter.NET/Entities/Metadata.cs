@@ -11,7 +11,7 @@ namespace Twitter.Net
         public string OldestId { get; set; }
         [JsonPropertyName("result_count")]
         public int ResultCount { get; set; }
-        [JsonPropertyName("next_text")]
+        [JsonPropertyName("next_token")]
         public string NextToken { get; set; }
     }
 }
